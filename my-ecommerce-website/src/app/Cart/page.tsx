@@ -103,7 +103,7 @@ const Page = () => {
         YOUR CART IS EMPTY
       </h1>
       <Link href="/">
-        <button className=" border-2 w-[25%] border-black bg-black text-white rounded-[10px] py-2 mt-5">
+        <button className=" border-2 sm:w-[90%] md:w-[70%] lg:w-[25%] border-black bg-black text-white rounded-[10px] py-2 mt-5">
           Go Back to Shopping
         </button>
       </Link>
