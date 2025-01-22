@@ -57,7 +57,7 @@ const CheckoutPage: React.FC = () => {
 
     try {
       // Make API call to place the order
-      const response = await axios.post('/api/place-order', orderData);
+       await axios.post('/api/place-order', orderData);
       setMessage('Order placed successfully!');
       clearCart(); 
       setTimeout(() => {

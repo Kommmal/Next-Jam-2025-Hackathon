@@ -1,10 +1,17 @@
-
 import React from 'react';
 import { FaTag } from 'react-icons/fa';
 import { FiArrowRight } from 'react-icons/fi';
 import Link from 'next/link';
 
-const OrderSummary = ({ calculateSubtotal, discount, deliveryFee, total }: any) => {
+// Define the prop types
+interface OrderSummaryProps {
+  calculateSubtotal: () => number;
+  discount: number;
+  deliveryFee: number;
+  total: number;
+}
+
+const OrderSummary: React.FC<OrderSummaryProps> = ({ calculateSubtotal, discount, deliveryFee, total }) => {
   return (
     <div className="lg:w-[40%]">
       <div className="flex flex-col gap-5 px-5 py-5 w-full border-2 rounded-[20px]">
@@ -35,10 +42,10 @@ const OrderSummary = ({ calculateSubtotal, discount, deliveryFee, total }: any) 
           </button>
         </div>
         <Link href="/Checkout">
-              <button className="w-full border-2 border-black bg-black text-white rounded-[20px] flex justify-center py-2 gap-2">
-                Go to Checkout <FiArrowRight size={20} />
-              </button>
-            </Link>
+          <button className="w-full border-2 border-black bg-black text-white rounded-[20px] flex justify-center py-2 gap-2">
+            Go to Checkout <FiArrowRight size={20} />
+          </button>
+        </Link>
       </div>
     </div>
   );

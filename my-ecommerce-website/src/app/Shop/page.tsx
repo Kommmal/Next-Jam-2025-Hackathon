@@ -90,14 +90,14 @@ const Page = () => {
     );
   };
 
-  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name === "minPrice") {
-      setMinPrice(Number(value));
-    } else if (name === "maxPrice") {
-      setMaxPrice(Number(value));
-    }
-  };
+  // const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   if (name === "minPrice") {
+  //     setMinPrice(Number(value));
+  //   } else if (name === "maxPrice") {
+  //     setMaxPrice(Number(value));
+  //   }
+  // };
 
   // Extract unique colors
   const uniqueColors = Array.from(new Set(data.flatMap(product => product.colors)));
