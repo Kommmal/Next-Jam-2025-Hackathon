@@ -1,5 +1,4 @@
-// app/Shop/page.tsx
-
+import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,7 +12,6 @@ interface Product {
   slug: string;
 }
 
-
 const fetchData = async () => {
   const query = `*[_type == 'products' && tags == "topselling"][0..4]{
     _id,
@@ -25,17 +23,35 @@ const fetchData = async () => {
 
   const data = await client.fetch(query);
   return data;
-}
+};
 
-const TopSelling = async () => {
-  const data = await fetchData();
+const TopSelling = () => {
+  const [data, setData] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const fetchedData = await fetchData();
+        setData(fetchedData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="my-[70px]">
       <div className="w-[80%] mx-auto my-0">
         <h1 className="text-2xl font-bold text-center">Top Selling</h1>
         <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-[50px] gap-x-9 gap-y-6">
-          {data.map((product: Product) => (
+          {data.map((product) => (
             <div key={product._id} className="flex flex-col items-center bg-white p-4 rounded-lg shadow-md">
               <Link href={`/products/${product.slug}`}>
                 <div className="flex flex-col gap-4">
