@@ -29,3 +29,5 @@ Shop.cs is a dynamic e-commerce marketplace website designed and developed as pa
 1. **Clone the repository** to your local machine:
    ```bash
    git clone https://github.com/your-username/shop-cs.git
+2. **Live Demo**
+   https://next-jam-2025-hackathon-v1ar.vercel.app/
