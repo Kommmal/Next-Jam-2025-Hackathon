@@ -33,7 +33,7 @@ const Header = () => {
           </div>
         
         <div
-          className={`fixed top-[15%] left-0 h-[1000px] bg-white w-[70%] shadow-lg transition-transform duration-300 z-50 ${
+          className={`fixed top-[20%] left-0 h-[1000px] bg-white w-[70%] shadow-lg transition-transform duration-300 z-50 ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
           } lg:static lg:flex lg:items-center lg:justify-center lg:bg-transparent lg:shadow-none lg:w-auto lg:translate-x-0`}
         >
