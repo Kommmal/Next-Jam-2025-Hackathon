@@ -8,10 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
+      screens: {
+        'xs': '320px', // Adding a custom breakpoint at 486px
+      }
     },
   },
   plugins: [],
