@@ -1,10 +1,10 @@
-"use client"
+
 
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
-import { useEffect, useState } from "react";
+
 
 interface Product {
   _id: string;
@@ -14,8 +14,9 @@ interface Product {
   slug: string;
 }
 
-async function getData() {
-  const query = `*[_type == "products" && tags == "newarrivals"][0..3]{
+
+const fetchData = async () => {
+  const query = `*[_type == 'products' && tags == "newarrivals"][0..4]{
     _id,
     name,
     "image": image.asset->url,
@@ -27,55 +28,36 @@ async function getData() {
   return data;
 }
 
-const NewArrivals = () => {
-  const [data, setData] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const products = await getData();
-        setData(products);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchData();
-  }, []); 
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+const NewArrivals = async () => {
+  const data = await fetchData();
 
   return (
     <div className="my-[70px]">
       <div className="w-[80%] mx-auto my-0">
-        <h1 className="text-2xl font-bold text-center">New Arrivals</h1>
+        <h1 className="text-2xl font-bold text-center">New Arrival</h1>
         <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-[50px] gap-x-9 gap-y-6">
-          {data.map((product) => (
-            <div key={product._id} className="flex flex-col items-center bg-white p-4 rounded-lg shadow-md h-[350px]">
+          {data.map((product: Product) => (
+            <div key={product._id} className="flex flex-col items-center bg-white p-4 rounded-lg shadow-md">
               <Link href={`/products/${product.slug}`}>
                 <div className="flex flex-col gap-4">
-                  <div className="flex justify-center rounded-md">
+                  <div className="flex justify-center">
                     <Image
                       src={product.image}
                       alt={product.name}
                       width={390}
                       height={410}
-                      className="xs:w-[390px] xs:h-[200px] rounded-md"
+                      className="object-contain"
+                      loading="lazy"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
                     <p className="text-sm sm:text-lg font-semibold">{product.name}</p>
                     <div className="flex items-center">
-                      <FaStar size={10} className="text-yellow-400" />
-                      <FaStar size={10} className="text-yellow-400" />
-                      <FaStar size={10} className="text-yellow-400" />
-                      <FaStar size={10} className="text-yellow-400" />
-                      <FaStar size={10} className="text-yellow-400" />
+                      {/* Display stars */}
+                      {[...Array(5)].map((_, index) => (
+                        <FaStar key={index} size={10} className="text-yellow-400" />
+                      ))}
                       <span className="ml-2 text-xs sm:text-sm">(76)</span>
                     </div>
                     <p className="text-red-600 text-xs sm:text-sm">
