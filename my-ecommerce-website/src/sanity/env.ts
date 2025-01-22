@@ -10,17 +10,12 @@ export const projectId = assertValue(
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID'
 )
-export const token = assertValue(
-  process.env.SANITY_TOKEN,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID'
-)
 
 
-function assertValue<T>(v: T | undefined, errorMessage: string): T | undefined {
+function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
-    console.warn(errorMessage); 
-    return undefined; 
+    throw new Error(errorMessage)
   }
-  return v;
-}
 
+  return v
+}
