@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+"use client"
+
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 interface Product {
   _id: string;
@@ -12,7 +14,7 @@ interface Product {
   slug: string;
 }
 
-const fetchData = async () => {
+async function getData() {
   const query = `*[_type == 'products' && tags == "topselling"][0..4]{
     _id,
     name,
@@ -23,28 +25,30 @@ const fetchData = async () => {
 
   const data = await client.fetch(query);
   return data;
-};
+}
 
 const TopSelling = () => {
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
+  data.slice(2,1)
   useEffect(() => {
-    const getData = async () => {
+    const fetchData = async () => {
       try {
-        const fetchedData = await fetchData();
-        setData(fetchedData);
-        setLoading(false);
+        const products = await getData();
+        setData(products);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
+    
+    fetchData();
+  }, []); 
 
-    getData();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="my-[70px]">
@@ -62,16 +66,16 @@ const TopSelling = () => {
                       width={390}
                       height={410}
                       className="object-contain"
-                      loading="lazy"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
                     <p className="text-sm sm:text-lg font-semibold">{product.name}</p>
                     <div className="flex items-center">
-                      {/* Display stars */}
-                      {[...Array(5)].map((_, index) => (
-                        <FaStar key={index} size={10} className="text-yellow-400" />
-                      ))}
+                      <FaStar size={10} className="text-yellow-400" />
+                      <FaStar size={10} className="text-yellow-400" />
+                      <FaStar size={10} className="text-yellow-400" />
+                      <FaStar size={10} className="text-yellow-400" />
+                      <FaStar size={10} className="text-yellow-400" />
                       <span className="ml-2 text-xs sm:text-sm">(76)</span>
                     </div>
                     <p className="text-red-600 text-xs sm:text-sm">
