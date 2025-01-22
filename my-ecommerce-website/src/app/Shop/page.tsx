@@ -58,8 +58,8 @@ const Page = () => {
         setData(products);
         if (products.length > 0) {
           // Set min and max prices based on the fetched products
-          setMinPrice(Math.min(...products.map(product => product.price)));
-          setMaxPrice(Math.max(...products.map(product => product.price)));
+          setMinPrice(Math.min(...products.map((product :Product)  => product.price)));
+          setMaxPrice(Math.max(...products.map((product: Product)  => product.price)));
         }
       } catch (error) {
         console.error("Error fetching data:", error);
