@@ -65,7 +65,7 @@ const Review = () => {
                         <h1 className='font-bold text-xl'>Sarah M.</h1>
                         <TiTick size={30} className='border-2 border-green-600 bg-green-600 rounded-full' />
                     </div>
-                    <p className='text-gray-500'>"I am blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses every piece I have bought has exceeded my expectations."</p>
+                    <p className='text-gray-500'>I am blown away by the quality and style of the clothes I received from Shop.co From casual wear to elegant dresses every piece I have bought has exceeded my expectations</p>
                     <p className='text-gray-500'>Posted on August 16, 2023</p>
                 </div>
                 <div className='flex flex-col gap-4 border-2 rounded-[20px] px-5 py-10'>
