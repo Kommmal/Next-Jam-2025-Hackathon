@@ -8,5 +8,5 @@ exports.client = (0, client_1.createClient)({
     dataset: 'production', // Or your dataset name
     apiVersion: '2024-01-04', // Today's date or latest API version
     useCdn: false, // Disable CDN for real-time updates
-    token: process.env.SANITY_TOKEN,
+   
 });
