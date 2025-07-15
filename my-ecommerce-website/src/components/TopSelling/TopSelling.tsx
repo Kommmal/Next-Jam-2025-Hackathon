@@ -1,10 +1,10 @@
-// app/Shop/page.tsx
+'use client'
 
+import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
-
 interface Product {
   _id: string;
   name: string;
@@ -14,21 +14,24 @@ interface Product {
 }
 
 
-const fetchData = async () => {
-  const query = `*[_type == 'products' && tags == "topselling"][0..4]{
+
+const TopSelling =  () => {
+  const [data, setData] = useState<Product[]>([]);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+         const query = `*[_type == 'products' && tags == "topselling"][0..4]{
     _id,
     name,
     "image": image.asset->url,
     price,
     "slug": slug.current,
   }`;
-
-  const data = await client.fetch(query);
-  return data;
-}
-
-const TopSelling = async () => {
-  const data = await fetchData();
+        const result = await client.fetch(query);
+        setData(result);
+      };
+      fetchData();
+    }, []);
 
   return (
     <div className="my-[70px]">

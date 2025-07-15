@@ -1,10 +1,10 @@
+'use client'
 
-
+import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
-
 
 interface Product {
   _id: string;
@@ -14,23 +14,23 @@ interface Product {
   slug: string;
 }
 
+const NewArrivals = () => {
+  const [data, setData] = useState<Product[]>([]);
 
-const fetchData = async () => {
-  const query = `*[_type == 'products' && tags == "newarrivals"][0..4]{
-    _id,
-    name,
-    "image": image.asset->url,
-    price,
-    "slug": slug.current,
-  }`;
-
-  const data = await client.fetch(query);
-  return data;
-}
-
-
-const NewArrivals = async () => {
-  const data = await fetchData();
+  useEffect(() => {
+    const fetchData = async () => {
+      const query = `*[_type == 'products' && tags == "newarrivals"][0..4]{
+        _id,
+        name,
+        "image": image.asset->url,
+        price,
+        "slug": slug.current,
+      }`;
+      const result = await client.fetch(query);
+      setData(result);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="my-[70px]">
@@ -54,7 +54,6 @@ const NewArrivals = async () => {
                   <div className="flex flex-col gap-2">
                     <p className="text-sm sm:text-lg font-semibold">{product.name}</p>
                     <div className="flex items-center">
-                      {/* Display stars */}
                       {[...Array(5)].map((_, index) => (
                         <FaStar key={index} size={10} className="text-yellow-400" />
                       ))}
