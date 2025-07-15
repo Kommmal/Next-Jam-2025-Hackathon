@@ -22,7 +22,8 @@ interface OrderData {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();  // Parse incoming request data
-    //console.log('Received Order Data:', data); 
+    console.log('Received Order Data:', data); 
+     console.log("Sanity token in route:", process.env.SANITY_TOKEN);
 
     const { firstName, lastName, email, phone, address, city, zip, country, paymentMethod, total, products }: OrderData = data;
 
