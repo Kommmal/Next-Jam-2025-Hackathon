@@ -16,11 +16,11 @@ export const token = assertValue(
 )
 
 
-function assertValue<T>(v: T | undefined, errorMessage: string): T | undefined {
+function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
-    console.warn(errorMessage); 
-    return undefined; 
+    throw new Error(errorMessage); 
   }
   return v;
 }
+
 
