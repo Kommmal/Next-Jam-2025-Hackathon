@@ -30,7 +30,7 @@ const CheckoutPage: React.FC = () => {
     city: '',
     zip: '',
     country: '',
-    paymentMethod: 'Credit Card',
+    paymentMethod: '',
   });
   const [message, setMessage] = useState<string>('');
   const tax = 2.5;
