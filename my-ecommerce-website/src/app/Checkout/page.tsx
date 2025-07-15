@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useCart } from '@/context/CartContext'; 
+import { useCart } from '@/context/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -19,7 +19,7 @@ interface FormData {
 }
 
 const CheckoutPage: React.FC = () => {
-  const { cart, total, clearCart } = useCart(); 
+  const { cart, total, clearCart } = useCart();
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
@@ -30,7 +30,7 @@ const CheckoutPage: React.FC = () => {
     city: '',
     zip: '',
     country: '',
-    paymentMethod: 'Credit Card', 
+    paymentMethod: 'Credit Card',
   });
   const [message, setMessage] = useState<string>('');
   const tax = 2.5;
@@ -52,16 +52,16 @@ const CheckoutPage: React.FC = () => {
         _type: 'reference',
         _ref: product._id,
       })),
-      status: 'Pending', 
+      status: 'Pending',
     };
 
     try {
       // Make API call to place the order
-       await axios.post('/api/place-order', orderData);
+      await axios.post('/api/place-order', orderData);
       setMessage('Order placed successfully!');
-      clearCart(); 
+      clearCart();
       setTimeout(() => {
-        router.push('/Thankyou'); 
+        router.push('/Thankyou');
       }, 2000);
     } catch (error) {
       console.error('Error placing order:', error);
@@ -81,7 +81,7 @@ const CheckoutPage: React.FC = () => {
         </div>
       </header>
 
-      
+
 
       {/* Main Content */}
       <main className="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -192,14 +192,17 @@ const CheckoutPage: React.FC = () => {
           />
           <select
             name="paymentMethod"
+            value={formData.paymentMethod}
             onChange={handleChange}
             required
             className="w-full px-3 py-2 border rounded-md"
           >
+            <option value="" disabled>-- Select Payment Method --</option>
             <option value="Credit Card">Credit Card</option>
             <option value="PayPal">PayPal</option>
             <option value="Cash on Delivery">Cash on Delivery</option>
           </select>
+
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
@@ -209,7 +212,7 @@ const CheckoutPage: React.FC = () => {
           {message && <p className="text-center text-green-500">{message}</p>}
         </form>
       </main>
-      
+
     </div>
   );
 };
