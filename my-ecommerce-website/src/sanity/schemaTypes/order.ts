@@ -13,7 +13,7 @@ export default {
       { name: 'country', title: 'Country', type: 'string' },
       { name: 'paymentMethod', title: 'Payment Method', type: 'string', options: { list: ['Credit Card', 'PayPal', 'Cash on Delivery'] } }, 
       { name: 'total', title: 'Total Amount', type: 'number' },
-      { name: 'products', title: 'Products', type: 'array', of: [{ type: 'reference', to: [{ type: 'products' }] }] }, 
+      { name: 'products', title: 'Products', type: 'array', of: [{ type: 'reference', to: [{ type: 'product' }] }] }, 
       { name: 'status', title: 'Order Status', type: 'string', options: { list: ['Pending', 'Shipped', 'Delivered'] } },
     ],
   };
