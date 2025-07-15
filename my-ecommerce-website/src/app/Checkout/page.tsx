@@ -82,7 +82,6 @@ const CheckoutPage: React.FC = () => {
       </header>
 
 
-
       {/* Main Content */}
       <main className="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Order Summary */}
