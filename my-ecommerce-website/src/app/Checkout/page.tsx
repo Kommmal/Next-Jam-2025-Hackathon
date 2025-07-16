@@ -49,8 +49,15 @@ const CheckoutPage: React.FC = () => {
       ...formData,
       total: finalTotal,
       products: cart.map((product) => ({
-        _type: 'reference',
-        _ref: product._id,
+       _type: "reference",
+      _ref: product._id,
+      name: product.name,
+      image: product.image,
+      sku: product.sku,
+      quantity: product.quantity,
+      price: product.price,
+      sizes: product.sizes,
+      colors: product.colors,
       })),
       status: 'Pending',
     };

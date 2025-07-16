@@ -19,6 +19,7 @@ interface SingleProduct {
   colors: string[];
   sizes: string[];
   category: string;
+  sku: number;
 }
 
 const ProductDetails = ({ params }: { params: { slug: string } }) => {
@@ -45,7 +46,8 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
         price,
         sizes,
         colors, 
-        category
+        category,
+        sku,
       }`;
       const productData = await client.fetch(query);
       setData(productData);
@@ -74,6 +76,7 @@ const ProductDetails = ({ params }: { params: { slug: string } }) => {
           sizes: [size],
           colors: [color],
           quantity, // Add the quantity property here
+
         },
         quantity // Pass the quantity separately to increment it
       );

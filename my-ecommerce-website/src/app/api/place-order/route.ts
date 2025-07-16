@@ -1,8 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { client } from '@/sanity/lib/client';
+import { NextRequest, NextResponse } from "next/server";
+import { client } from "@/sanity/lib/client";
 
 interface Product {
   _id: string;
+  name: string;
+  image?: string;
+  sku: number;
+  quantity: number;
+  sizes: string;
+  colors: string;
+  price: number;
 }
 
 interface OrderData {
@@ -21,24 +28,42 @@ interface OrderData {
 
 export async function POST(req: NextRequest) {
   try {
-    const data = await req.json();  // Parse incoming request data
-    console.log('Received Order Data:', data); 
-     console.log("Sanity token in route:", process.env.SANITY_TOKEN);
+    const data = await req.json(); // Parse incoming request data
+    console.log("Received Order Data:", data);
 
-    const { firstName, lastName, email, phone, address, city, zip, country, paymentMethod, total, products }: OrderData = data;
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      address,
+      city,
+      zip,
+      country,
+      paymentMethod,
+      total,
+      products,
+    }: OrderData = data;
 
     // Check if products array is correctly passed
     if (!products || products.length === 0) {
-      console.log('No products in order.');
+      console.log("No products in order.");
     }
 
     const productReferences = products.map((product) => ({
-      _type: 'reference',
+      _type: "reference",
       _ref: product._id,
+      name: product.name,
+      image: product.image,
+      sku: product.sku,
+      quantity: product.quantity,
+      price: product.price,
+      sizes: product.sizes,
+      colors: product.colors,
     }));
 
     const order = await client.create({
-      _type: 'order',
+      _type: "order",
       firstName,
       lastName,
       email,
@@ -50,14 +75,17 @@ export async function POST(req: NextRequest) {
       paymentMethod,
       total,
       products: productReferences,
-      status: 'Pending',
+      status: "Pending",
     });
 
-    console.log('Order created successfully:', order);  // Debugging line
+    console.log("Order created successfully:", order); // Debugging line
 
     return NextResponse.json({ success: true, orderId: order._id });
   } catch (error) {
-    console.error('Error creating order:', error);  // Log error to console
-    return NextResponse.json({ success: false, message: 'Failed to create order' }, { status: 500 });
+    console.error("Error creating order:", error); // Log error to console
+    return NextResponse.json(
+      { success: false, message: "Failed to create order" },
+      { status: 500 }
+    );
   }
 }

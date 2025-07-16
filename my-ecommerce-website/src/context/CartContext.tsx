@@ -11,7 +11,8 @@ interface SingleProduct {
   slug: string;
   colors: string[];
   sizes: string[];
-  quantity: number; // Added quantity field
+  quantity: number; 
+  sku:number;
 }
 
 interface CartContextType {
@@ -74,8 +75,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       // If the product doesn't exist, add it with the specified quantity
       setCart((prevCart) => [...prevCart, { ...product, quantity }]);
     }
+    
+      console.log("Added to cart:", { ...product, quantity });
   };
-
+  
   // Remove product from the cart
   const removeFromCart = (id: string) => {
     setCart((prevCart) => prevCart.filter((product) => product._id !== id));
